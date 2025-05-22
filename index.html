@@ -149,26 +149,26 @@
         .filter-button:hover:not(.active) {
             background-color: #DBEAFE; 
         }
-        #car-filters-container .filter-button {
-            flex-shrink: 0; /* Prevent buttons from shrinking in flex container */
+        #car-filters .filter-button { 
+            flex-shrink: 0;
         }
 
 
         /* Scroll to top button */
         #scrollToTopBtn {
             position: fixed;
-            bottom: 20px; /* Adjusted for mobile */
-            right: 20px; /* Adjusted for mobile */
+            bottom: 20px; 
+            right: 20px; 
             display: none; 
             z-index: 100;
             border-radius: 50%;
-            width: 44px; /* Slightly smaller for mobile */
-            height: 44px; /* Slightly smaller for mobile */
+            width: 44px; 
+            height: 44px; 
             align-items: center;
             justify-content: center;
         }
         #scrollToTopBtn i {
-            font-size: 1.25rem; /* Slightly smaller icon for mobile */
+            font-size: 1.25rem; 
         }
         @media (min-width: 768px) { /* md breakpoint */
             #scrollToTopBtn {
@@ -231,14 +231,14 @@
     <header id="main-header" class="fixed w-full top-0 z-50 py-3 md:py-4">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <nav class="flex items-center justify-between">
-                <a href="#home" class="text-xl sm:text-2xl lg:text-3xl font-bold text-white whitespace-nowrap">Maxuti <span class="text-amber-400">Trans</span></a>
-                <div class="hidden md:flex space-x-4 lg:space-x-5 items-center"> 
-                    <a href="#home" class="nav-link text-white transition-colors duration-300 whitespace-nowrap px-1 lg:px-2">მთავარი</a>
-                    <a href="#about" class="nav-link text-white transition-colors duration-300 whitespace-nowrap px-1 lg:px-2">ჩვენს შესახებ</a>
-                    <a href="#services" class="nav-link text-white transition-colors duration-300 whitespace-nowrap px-1 lg:px-2">სერვისები</a>
-                    <a href="#cars" class="nav-link text-white transition-colors duration-300 whitespace-nowrap px-1 lg:px-2">ავტოპარკი</a>
-                    <a href="#contact" class="nav-link text-white transition-colors duration-300 whitespace-nowrap px-1 lg:px-2">კონტაქტი</a>
-                    <a href="tel:+995599868586" class="text-white bg-amber-500 hover:bg-amber-600 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-all duration-300 flex items-center text-xs sm:text-sm font-medium shadow-md hover:shadow-lg whitespace-nowrap">
+                <a href="#home" class="text-xl sm:text-2xl lg:text-3xl font-bold text-white whitespace-nowrap lg:mr-8 xl:mr-12">Maxuti <span class="text-amber-400">Trans</span></a>
+                <div class="hidden md:flex space-x-4 lg:space-x-6 items-center"> 
+                    <a href="#home" class="nav-link text-white transition-colors duration-300 whitespace-nowrap px-1 lg:px-2 text-sm lg:text-base">მთავარი</a>
+                    <a href="#about" class="nav-link text-white transition-colors duration-300 whitespace-nowrap px-1 lg:px-2 text-sm lg:text-base">ჩვენს შესახებ</a>
+                    <a href="#services" class="nav-link text-white transition-colors duration-300 whitespace-nowrap px-1 lg:px-2 text-sm lg:text-base">სერვისები</a>
+                    <a href="#cars" class="nav-link text-white transition-colors duration-300 whitespace-nowrap px-1 lg:px-2 text-sm lg:text-base">ავტოპარკი</a>
+                    <a href="#contact" class="nav-link text-white transition-colors duration-300 whitespace-nowrap px-1 lg:px-2 text-sm lg:text-base">კონტაქტი</a>
+                    <a href="tel:+995599868586" class="text-white bg-amber-500 hover:bg-amber-600 px-3 py-1.5 md:px-4 md:py-2 rounded-lg transition-all duration-300 flex items-center text-xs sm:text-sm font-medium shadow-md hover:shadow-lg whitespace-nowrap">
                         <i class="fas fa-phone-alt mr-1 sm:mr-2"></i> 599 86 85 86
                     </a>
                 </div>
@@ -384,16 +384,14 @@
                 <p class="text-base sm:text-lg text-gray-600 max-w-xl md:max-w-2xl mx-auto mt-4 sm:mt-6">აირჩიეთ თქვენს საჭიროებებზე მორგებული ტრანსპორტი.</p>
             </div>
             <div id="car-filters-container" class="mb-10 md:mb-12 text-center fade-in-up">
-                <span class="block sm:inline text-lg sm:text-xl font-semibold mb-3 sm:mb-0 sm:mr-3 text-gray-700">ტვირთამწეობა:</span>
-                <div id="car-filters" class="overflow-x-auto pb-2 sm:pb-0 sm:overflow-x-visible">
-                    <div class="inline-flex flex-nowrap sm:flex-wrap justify-start sm:justify-center rounded-lg shadow-md" role="group">
-                        <button type="button" data-capacity="all" class="filter-button active py-2 px-4 sm:py-2.5 sm:px-5 text-xs sm:text-sm font-medium text-gray-900 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700 whitespace-nowrap">ყველა</button>
-                        <button type="button" data-capacity="500" class="filter-button py-2 px-4 sm:py-2.5 sm:px-5 text-xs sm:text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-300 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700 whitespace-nowrap">500კგ</button>
-                        <button type="button" data-capacity="1600" class="filter-button py-2 px-4 sm:py-2.5 sm:px-5 text-xs sm:text-sm font-medium text-gray-900 bg-white border-t border-b border-l border-gray-300 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700 whitespace-nowrap">1600კგ</button>
-                        <button type="button" data-capacity="1800" class="filter-button py-2 px-4 sm:py-2.5 sm:px-5 text-xs sm:text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-300 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700 whitespace-nowrap">1800კგ</button>
-                        <button type="button" data-capacity="2000" class="filter-button py-2 px-4 sm:py-2.5 sm:px-5 text-xs sm:text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-300 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700 whitespace-nowrap">2000კგ</button>
-                        <button type="button" data-capacity="3200" class="filter-button py-2 px-4 sm:py-2.5 sm:px-5 text-xs sm:text-sm font-medium text-gray-900 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700 whitespace-nowrap">3200კგ</button>
-                    </div>
+                <span class="block text-lg sm:text-xl font-semibold mb-4 text-gray-700">ტვირთამწეობა:</span>
+                <div id="car-filters" class="flex flex-wrap justify-center gap-2 rounded-lg" role="group">
+                    <button type="button" data-capacity="all" class="filter-button active py-2 px-4 text-xs sm:text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-md hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700 whitespace-nowrap">ყველა</button>
+                    <button type="button" data-capacity="500" class="filter-button py-2 px-4 text-xs sm:text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-md hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700 whitespace-nowrap">500კგ</button>
+                    <button type="button" data-capacity="1600" class="filter-button py-2 px-4 text-xs sm:text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-md hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700 whitespace-nowrap">1600კგ</button>
+                    <button type="button" data-capacity="1800" class="filter-button py-2 px-4 text-xs sm:text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-md hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700 whitespace-nowrap">1800კგ</button>
+                    <button type="button" data-capacity="2000" class="filter-button py-2 px-4 text-xs sm:text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-md hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700 whitespace-nowrap">2000კგ</button>
+                    <button type="button" data-capacity="3200" class="filter-button py-2 px-4 text-xs sm:text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-md hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700 whitespace-nowrap">3200კგ</button>
                 </div>
             </div>
             <div id="cars-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
