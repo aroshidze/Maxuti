@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maxuti - ავეჯის პროფესიონალური გადაზიდვა თბილისში და საქართველოში</title>
+    <meta name="description" content="Maxuti გთავაზობთ ავეჯის და სხვადასხვა ტვირთების გადაზიდვის სრულ სერვისს თბილისსა და საქართველოს მასშტაბით. 16 წლიანი გამოცდილება, პროფესიონალი გუნდი და საიმედო ტრანსპორტი თქვენს სამსახურში 24/7.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Noto Sans Georgian', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f8fafc; /* Tailwind gray-50 */
+        }
+        /* Video background styling */
+        #hero-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        #hero-video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(17, 24, 39, 0.75); /* Darker overlay - Tailwind gray-900 with opacity */
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        /* Animation classes */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px); /* Increased for more noticeable effect */
+            transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+        }
+        .fade-in-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hero-text-animate {
+            animation: fadeInUpSlight 1s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+        .hero-button-animate {
+            animation: fadeInUpSlight 1s ease-out 0.8s forwards;
+            opacity: 0;
+        }
+        @keyframes fadeInUpSlight {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header fixed behavior */
+        header {
+            transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out, padding 0.4s ease-in-out;
+        }
+        header.scrolled {
+            background-color: rgba(17, 24, 39, 0.97); /* Tailwind gray-900 with more opacity */
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            padding-top: 0.5rem; /* py-2 */
+            padding-bottom: 0.5rem; /* py-2 */
+        }
+        /* Active nav link styling */
+        .nav-link.active {
+            color: #F59E0B; /* Tailwind amber-500 */
+            font-weight: 700;
+            border-bottom: 2px solid #F59E0B;
+            padding-bottom: 4px;
+        }
+        .nav-link:not(.active):hover {
+             color: #FCD34D; /* Tailwind amber-300 */
+        }
+
+
+        /* Custom button style */
+        .cta-button {
+            background-color: #F59E0B; /* Tailwind amber-500 */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .cta-button:hover {
+            background-color: #D97706; /* Tailwind amber-600 */
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 7px 14px rgba(0,0,0,0.15);
+        }
+        /* Card hover effect */
+        .service-card, .car-card {
+            transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 12px; /* More rounded */
+        }
+        .service-card:hover, .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        .service-card .fa-stack-1x, .service-card .fa-stack-2x {
+             transition: color 0.3s ease;
+        }
+        .service-card:hover .fa-stack-1x {
+            color: #ffffff;
+        }
+        .service-card:hover .fa-stack-2x {
+            color: #F59E0B; /* Amber-500 */
+        }
+
+
+        /* Active filter button */
+        .filter-button.active {
+            background-color: #1D4ED8; /* Tailwind blue-700 */
+            color: white;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .filter-button {
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .filter-button:hover:not(.active) {
+            background-color: #DBEAFE; /* Tailwind blue-100 */
+        }
+
+        /* Scroll to top button */
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 30px; /* Increased distance */
+            right: 30px; /* Increased distance */
+            display: none; /* Initially hidden by JS */
+            z-index: 100;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+        }
+        #scrollToTopBtn i {
+            font-size: 1.5rem; /* Larger icon */
+        }
+
+        /* Custom scrollbar (optional) */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: #e5e7eb; border-radius: 10px; } /* gray-200 */
+        ::-webkit-scrollbar-thumb { background: #60A5FA; border-radius: 10px; } /* Tailwind blue-400 */
+        ::-webkit-scrollbar-thumb:hover { background: #3B82F6; } /* Tailwind blue-500 */
+
+        /* Ensure Georgian font is applied correctly */
+        h1, h2, h3, h4, h5, h6, p, a, span, li, button, input, select, textarea, label {
+            font-family: 'Noto Sans Georgian', sans-serif;
+        }
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 20px; /* Added margin for spacing */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #F59E0B; /* Amber-500 */
+            bottom: 0;
+            left: calc(50% - 30px);
+        }
+        /* Contact form input styling */
+        .form-input {
+            background-color: #374151; /* gray-700 */
+            border: 1px solid #4B5563; /* gray-600 */
+            color: white;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #F59E0B; /* amber-500 */
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3); /* amber-500 with opacity */
+            background-color: #4B5563; /* gray-600 */
+        }
+        #form-message {
+            transition: opacity 0.5s ease-in-out;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-700 antialiased">
+
+    <header id="main-header" class="fixed w-full top-0 z-50 py-4">
+        <div class="container mx-auto px-4 lg:px-8">
+            <nav class="flex items-center justify-between">
+                <a href="#home" class="text-2xl lg:text-3xl font-bold text-white whitespace-nowrap">Maxuti <span class="text-amber-400">Trans</span></a>
+                <div class="hidden md:flex space-x-5 items-center"> 
+                    <a href="#home" class="nav-link text-white transition-colors duration-300 whitespace-nowrap">მთავარი</a>
+                    <a href="#about" class="nav-link text-white transition-colors duration-300 whitespace-nowrap">ჩვენს შესახებ</a>
+                    <a href="#services" class="nav-link text-white transition-colors duration-300 whitespace-nowrap">სერვისები</a>
+                    <a href="#cars" class="nav-link text-white transition-colors duration-300 whitespace-nowrap">ავტოპარკი</a>
+                    <a href="#contact" class="nav-link text-white transition-colors duration-300 whitespace-nowrap">კონტაქტი</a>
+                    <a href="tel:+995599868586" class="text-white bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg transition-all duration-300 flex items-center text-sm font-medium shadow-md hover:shadow-lg whitespace-nowrap">
+                        <i class="fas fa-phone-alt mr-2"></i> 599 86 85 86
+                    </a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-button" aria-label="მენიუს გახსნა" class="text-white focus:outline-none">
+                        <i class="fas fa-bars fa-lg"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 bg-opacity-95 absolute w-full shadow-xl">
+            <a href="#home" class="block nav-link text-white text-center py-3 hover:bg-amber-500 transition-colors duration-300">მთავარი</a>
+            <a href="#about" class="block nav-link text-white text-center py-3 hover:bg-amber-500 transition-colors duration-300">ჩვენს შესახებ</a>
+            <a href="#services" class="block nav-link text-white text-center py-3 hover:bg-amber-500 transition-colors duration-300">სერვისები</a>
+            <a href="#cars" class="block nav-link text-white text-center py-3 hover:bg-amber-500 transition-colors duration-300">ავტოპარკი</a>
+            <a href="#contact" class="block nav-link text-white text-center py-3 hover:bg-amber-500 transition-colors duration-300">კონტაქტი</a>
+            <a href="tel:+995599868586" class="block text-white text-center py-4 bg-amber-600 hover:bg-amber-700 transition-colors duration-300 font-medium"><i class="fas fa-phone-alt mr-2"></i> 599 86 85 86</a>
+        </div>
+    </header>
+
+    <section id="home" class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden">
+        <div id="hero-video-container">
+            <video autoplay muted loop playsinline id="hero-video">
+                <source src="https://videos.pexels.com/video-files/6169121/6169121-uhd_2560_1440_25fps.mp4" type="video/mp4">
+                თქვენი ბრაუზერი არ უჭერს მხარს ვიდეო ტეგს.
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+        <div class="hero-content container mx-auto px-4">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight hero-text-animate">ავეჯის და ტვირთების <br class="sm:hidden"><span class="text-amber-400">პროფესიონალური</span> გადაზიდვა</h1>
+            <p class="text-lg md:text-xl lg:text-2xl mb-10 max-w-3xl mx-auto hero-text-animate" style="animation-delay: 0.7s;">სწრაფი, საიმედო და ხარისხიანი მომსახურება თბილისსა და სრულიად საქართველოში.</p>
+            <a href="#contact" class="cta-button text-lg lg:text-xl font-semibold px-10 py-4 rounded-lg hero-button-animate">დაგვიკავშირდით</a>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 lg:py-24 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="text-center mb-12 lg:mb-20 fade-in-up">
+                <h2 class="section-title text-3xl lg:text-4xl font-bold text-gray-800">ჩვენი გამოცდილება თქვენს სამსახურში</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-6">16 წლიანი გამოცდილება და მაღალი პროფესიონალიზმი!</p>
+            </div>
+            <div class="flex flex-wrap items-center -mx-4">
+                <div class="w-full lg:w-1/2 px-4 mb-10 lg:mb-0 fade-in-up">
+                    <img src="https://images.pexels.com/photos/4488638/pexels-photo-4488638.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="გადაზიდვის პროცესი, სატვირთო მანქანა" class="rounded-xl shadow-2xl w-full h-auto max-h-[450px] object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x450/cccccc/969696?text=სურათი+მიუწვდომელია';">
+                </div>
+                <div class="w-full lg:w-1/2 px-4 fade-in-up" style="transition-delay: 0.2s;">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-5">რატომ Maxuti Trans?</h3>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        ჩვენი კომპანია <span class="font-semibold text-blue-700">Maxuti Trans</span> დაარსდა 2009 წელს. ამ ხნის განმავლობაში ჩვენ მოვემსახურეთ ათასობით კმაყოფილ კლიენტს და დავაგროვეთ ფასდაუდებელი გამოცდილება ტვირთების გადაზიდვის სფეროში.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        გვყავს <span class="font-semibold">14 ძირითადი და 6 სარეზერვო</span> თანამედროვე ავტომობილი, რაც საშუალებას გვაძლევს შევასრულოთ ნებისმიერი სირთულის შეკვეთა. ჩვენი <span class="font-semibold">40 კაციანი პროფესიონალი გუნდი</span> მზად არის მოგემსახუროთ სწრაფად და ხარისხიანად.
+                    </p>
+                    <ul class="space-y-4 text-lg text-gray-700">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>მომსახურება ხელმისაწვდომია 24/7.</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>ვითვალისწინებთ კლიენტის ყველა სურვილს.</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>2684+ წარმატებით შესრულებული შეკვეთა.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-16 lg:py-24 bg-gray-100">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="text-center mb-12 lg:mb-20 fade-in-up">
+                <h2 class="section-title text-3xl lg:text-4xl font-bold text-gray-800">ჩვენი სერვისები</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-6">გთავაზობთ გადაზიდვების სრულ სპექტრს თქვენი კომფორტისთვის.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div class="service-card bg-white p-6 rounded-xl shadow-lg fade-in-up text-center">
+                    <span class="fa-stack fa-3x mb-4 text-amber-500">
+                        <i class="fas fa-circle fa-stack-2x text-gray-100"></i>
+                        <i class="fas fa-comments-dollar fa-stack-1x"></i>
+                    </span>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">უფასო კონსულტაცია</h3>
+                    <p class="text-gray-600 text-sm">შეფასება და პროფესიონალური რჩევები.</p>
+                </div>
+                <div class="service-card bg-white p-6 rounded-xl shadow-lg fade-in-up text-center" style="transition-delay: 0.1s;">
+                     <span class="fa-stack fa-3x mb-4 text-amber-500">
+                        <i class="fas fa-circle fa-stack-2x text-gray-100"></i>
+                        <i class="fas fa-users-cog fa-stack-1x"></i>
+                    </span>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">მუშების დაქირავება</h3>
+                    <p class="text-gray-600 text-sm">გამოცდილი მუშახელი თქვენს სამსახურში.</p>
+                </div>
+                <div class="service-card bg-white p-6 rounded-xl shadow-lg fade-in-up text-center" style="transition-delay: 0.2s;">
+                     <span class="fa-stack fa-3x mb-4 text-amber-500">
+                        <i class="fas fa-circle fa-stack-2x text-gray-100"></i>
+                        <i class="fas fa-couch fa-stack-1x"></i>
+                    </span>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">ავეჯის დაშლა-აწყობა</h3>
+                    <p class="text-gray-600 text-sm">ფრთხილი და პროფესიონალური მიდგომა.</p>
+                </div>
+                <div class="service-card bg-white p-6 rounded-xl shadow-lg fade-in-up text-center" style="transition-delay: 0.3s;">
+                     <span class="fa-stack fa-3x mb-4 text-amber-500">
+                        <i class="fas fa-circle fa-stack-2x text-gray-100"></i>
+                        <i class="fas fa-home-user fa-stack-1x"></i>
+                    </span>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">ბინების გადატანა</h3>
+                    <p class="text-gray-600 text-sm">სრული სერვისი თქვენი კომფორტისთვის.</p>
+                </div>
+                <div class="service-card bg-white p-6 rounded-xl shadow-lg fade-in-up text-center" style="transition-delay: 0.4s;">
+                     <span class="fa-stack fa-3x mb-4 text-amber-500">
+                        <i class="fas fa-circle fa-stack-2x text-gray-100"></i>
+                        <i class="fas fa-music fa-stack-1x"></i>
+                    </span>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">პიანინო/როიალის გადატანა</h3>
+                    <p class="text-gray-600 text-sm">სპეციალიზებული ტრანსპორტირება.</p>
+                </div>
+                 <div class="service-card bg-white p-6 rounded-xl shadow-lg fade-in-up text-center" style="transition-delay: 0.5s;">
+                     <span class="fa-stack fa-3x mb-4 text-amber-500">
+                        <i class="fas fa-circle fa-stack-2x text-gray-100"></i>
+                        <i class="fas fa-building fa-stack-1x"></i>
+                    </span>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">ოფისების/საწყობების გადატანა</h3>
+                    <p class="text-gray-600 text-sm">მასშტაბური გადაზიდვები.</p>
+                </div>
+                <div class="service-card bg-white p-6 rounded-xl shadow-lg fade-in-up text-center" style="transition-delay: 0.6s;">
+                    <span class="fa-stack fa-3x mb-4 text-amber-500">
+                        <i class="fas fa-circle fa-stack-2x text-gray-100"></i>
+                        <i class="fas fa-piggy-bank fa-stack-1x"></i>
+                    </span>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">სეიფების/ბანკომატების გადატანა</h3>
+                    <p class="text-gray-600 text-sm">მძიმე და სპეციფიკური ტვირთები.</p>
+                </div>
+                <div class="service-card bg-white p-6 rounded-xl shadow-lg fade-in-up text-center" style="transition-delay: 0.7s;">
+                    <span class="fa-stack fa-3x mb-4 text-amber-500">
+                        <i class="fas fa-circle fa-stack-2x text-gray-100"></i>
+                        <i class="fas fa-truck-loading fa-stack-1x"></i>
+                    </span>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">ტრაილერების დაცლა</h3>
+                    <p class="text-gray-600 text-sm">სწრაფი და ორგანიზებული სამუშაო.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cars" class="py-16 lg:py-24 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="text-center mb-12 lg:mb-20 fade-in-up">
+                <h2 class="section-title text-3xl lg:text-4xl font-bold text-gray-800">ჩვენი ავტოპარკი</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-6">აირჩიეთ თქვენს საჭიროებებზე მორგებული ტრანსპორტი.</p>
+            </div>
+            <div class="mb-12 text-center fade-in-up">
+                <span class="text-xl font-semibold mr-3 text-gray-700">ტვირთამწეობა:</span>
+                <div id="car-filters" class="inline-flex rounded-lg shadow-md" role="group">
+                    <button type="button" data-capacity="all" class="filter-button active py-2.5 px-5 text-sm font-medium text-gray-900 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700">ყველა</button>
+                    <button type="button" data-capacity="500" class="filter-button py-2.5 px-5 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-300 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700">500კგ</button>
+                    <button type="button" data-capacity="1600" class="filter-button py-2.5 px-5 text-sm font-medium text-gray-900 bg-white border-t border-b border-l border-gray-300 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700">1600კგ</button>
+                    <button type="button" data-capacity="1800" class="filter-button py-2.5 px-5 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-300 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700">1800კგ</button>
+                    <button type="button" data-capacity="2000" class="filter-button py-2.5 px-5 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-300 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700">2000კგ</button>
+                    <button type="button" data-capacity="3200" class="filter-button py-2.5 px-5 text-sm font-medium text-gray-900 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:text-blue-700">3200კგ</button>
+                </div>
+            </div>
+            <div id="cars-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 lg:py-24 bg-gray-800 text-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="text-center mb-12 lg:mb-20 fade-in-up">
+                <h2 class="section-title text-3xl lg:text-4xl font-bold mb-4 text-white">დაგვიკავშირდით</h2>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto mt-6">მზად ვართ ვუპასუხოთ თქვენს ყველა კითხვას და დაგეხმაროთ გადაზიდვის ორგანიზებაში.</p>
+            </div>
+            <div class="flex flex-wrap -mx-4 items-stretch">
+                <div class="w-full lg:w-1/2 px-4 mb-10 lg:mb-0 fade-in-up">
+                    <div class="bg-gray-700 p-8 rounded-xl shadow-xl h-full">
+                        <h3 class="text-2xl font-semibold mb-8 text-amber-400">საკონტაქტო ინფორმაცია</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-phone-alt text-amber-400 text-2xl mr-4 w-8 text-center"></i>
+                                <div>
+                                    <h4 class="text-xl font-medium">ტელეფონი:</h4>
+                                    <a href="tel:+995599868586" class="text-lg text-gray-200 hover:text-amber-300 transition-colors">599 86 85 86</a><br>
+                                    <a href="tel:+995557932369" class="text-lg text-gray-200 hover:text-amber-300 transition-colors">557 93 23 69</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-amber-400 text-2xl mr-4 w-8 text-center"></i>
+                                <div>
+                                    <h4 class="text-xl font-medium">ელ.ფოსტა:</h4>
+                                    <a href="mailto:kaxaber.darbaidze@gmail.com" class="text-lg text-gray-200 hover:text-amber-300 transition-colors">kaxaber.darbaidze@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fab fa-facebook-f text-amber-400 text-2xl mr-4 w-8 text-center"></i>
+                                <div>
+                                    <h4 class="text-xl font-medium">Facebook:</h4>
+                                    <a href="https://www.facebook.com/Maxuticom-518606644850572/" target="_blank" rel="noopener noreferrer" class="text-lg text-gray-200 hover:text-amber-300 transition-colors">MaxutiCom</a>
+                                </div>
+                            </div>
+                             <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-amber-400 text-2xl mr-4 w-8 text-center"></i>
+                                <div>
+                                    <h4 class="text-xl font-medium">მისამართი:</h4>
+                                    <p class="text-lg text-gray-200">თბილისი, საქართველო</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/2 px-4 fade-in-up" style="transition-delay: 0.2s;">
+                     <div class="bg-gray-700 p-8 rounded-xl shadow-xl h-full">
+                        <h3 class="text-2xl font-semibold mb-8 text-amber-400">მოგვწერეთ</h3>
+                        <form id="contactForm" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-300 mb-1">სახელი</label>
+                                <input type="text" name="name" id="name" required class="form-input w-full px-4 py-3 rounded-lg placeholder-gray-400" placeholder="თქვენი სახელი">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-300 mb-1">ელ.ფოსტა</label>
+                                <input type="email" name="email" id="email" required class="form-input w-full px-4 py-3 rounded-lg placeholder-gray-400" placeholder="თქვენი ელ.ფოსტა">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-300 mb-1">შეტყობინება</label>
+                                <textarea name="message" id="message" rows="5" required class="form-input w-full px-4 py-3 rounded-lg placeholder-gray-400" placeholder="თქვენი შეტყობინება"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="cta-button w-full font-semibold px-6 py-3.5 rounded-lg">გაგზავნა</button>
+                            </div>
+                            <p id="form-message" class="text-sm text-center h-5"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-12 text-center">
+        <div class="container mx-auto px-4">
+            <div class="mb-4">
+                <a href="https://www.facebook.com/Maxuticom-518606644850572/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-amber-400 mx-3 transition-colors text-xl"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            <p class="text-sm">&copy; <span id="currentYear"></span> Maxuti Trans. ყველა უფლება დაცულია.</p>
+            <p class="text-xs mt-1">პროფესიონალური გადაზიდვები თბილისსა და საქართველოში.</p>
+        </div>
+    </footer>
+
+    <button id="scrollToTopBtn" title="ზემოთ ასვლა" class="cta-button p-3 fixed bottom-8 right-8 rounded-full shadow-lg opacity-0 transition-opacity duration-300">
+        <i class="fas fa-arrow-up fa-lg"></i>
+    </button>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mainHeader = document.getElementById('main-header');
+    const mobileMenuButton = document.getElementById('menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            mainHeader.classList.add('scrolled');
+        } else {
+            mainHeader.classList.remove('scrolled');
+        }
+
+        // Scroll to top button visibility
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            scrollToTopBtn.style.display = "flex"; // Use flex to align icon
+            scrollToTopBtn.style.opacity = "1";
+        } else {
+            scrollToTopBtn.style.opacity = "0";
+            setTimeout(() => { // Hide after fade out
+                 if(scrollToTopBtn.style.opacity === "0") scrollToTopBtn.style.display = "none";
+            }, 300);
+        }
+
+        // Active nav link highlighting on scroll
+        let currentSection = "";
+        const sections = document.querySelectorAll("section[id]");
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - mainHeader.offsetHeight - 50) { // Adjusted offset
+                currentSection = section.getAttribute("id");
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove("active");
+            if (link.getAttribute("href").substring(1) === currentSection) {
+                link.classList.add("active");
+            }
+        });
+         // Ensure "მთავარი" is active when at the very top
+        if (window.scrollY < sections[0].offsetTop - mainHeader.offsetHeight - 50) {
+            navLinks.forEach(link => link.classList.remove("active"));
+            document.querySelector('a[href="#home"].nav-link').classList.add('active');
+        }
+
+
+    });
+
+    // Smooth scroll for navigation links
+    navLinks.forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href.startsWith("#") && href.length > 1 && document.querySelector(href)) {
+                 e.preventDefault();
+                 const targetElement = document.querySelector(href);
+                 const offsetTop = targetElement.offsetTop - mainHeader.offsetHeight + 1; // +1 to ensure it's just below header
+
+                 window.scrollTo({
+                     top: offsetTop,
+                     behavior: 'smooth'
+                 });
+                 // Close mobile menu if open
+                 if (mobileMenu && !mobileMenu.classList.contains('hidden')) { // Added null check for mobileMenu
+                    mobileMenu.classList.add('hidden');
+                 }
+            }
+        });
+    });
+
+
+    // Mobile menu toggle
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+
+    // Intersection Observer for animations
+    const animatedElements = document.querySelectorAll('.fade-in-up');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            } else {
+                // entry.target.classList.remove('is-visible'); // Uncomment to re-animate on scroll up
+            }
+        });
+    }, { threshold: 0.15 }); // Adjusted threshold
+
+    animatedElements.forEach(el => observer.observe(el));
+
+    // Car data - ALL IMAGES ARE NOW INFORMATIVE PLACEHOLDERS for maximum compatibility in preview
+    const carsData = [
+        { name: "Ford Courier", capacity: 500, priceTbilisi: "25ლ", priceOutside: "1კმ – 85 თეთრი", priceAirport: "35ლ", image: "https://placehold.co/600x400/E2E8F0/4A5568?text=Ford+Courier+500kg", alt: "Ford Courier სატვირთო, 500კგ ტვირთამწეობა" },
+        { name: "Ford Transit (A)", capacity: 1600, priceTbilisi: "35ლ", priceOutside: "1კმ–1.10 ლ. ერთი გზა", priceAirport: "50ლ", image: "https://placehold.co/600x400/D1D5DB/374151?text=Ford+Transit+1600kg+(A)", alt: "Ford Transit სატვირთო, 1600კგ ტვირთამწეობა, მოდელი A" },
+        { name: "Ford Transit (B)", capacity: 1600, priceTbilisi: "40ლ", priceOutside: "1კმ–1.10 ლ. ერთი გზა", priceAirport: "50ლ", image: "https://placehold.co/600x400/9CA3AF/1F2937?text=Ford+Transit+1600kg+(B)", alt: "Ford Transit სატვირთო, 1600კგ ტვირთამწეობა, მოდელი B" },
+        { name: "Ford Transit (C)", capacity: 1600, priceTbilisi: "40ლ", priceOutside: "1კმ–1.10 ლ. ერთი გზა", priceAirport: "50ლ", image: "https://placehold.co/600x400/6B7280/111827?text=Ford+Transit+1600kg+(C)", alt: "Ford Transit სატვირთო, 1600კგ ტვირთამწეობა, მოდელი C" },
+        { name: "Ford Transit (D)", capacity: 1800, priceTbilisi: "45ლ – ადგილიდან ადგილამდე", priceOutside: "1კმ–1.10 ლ. ერთი გზა", priceAirport: "60ლ", image: "https://placehold.co/600x400/E2E8F0/4A5568?text=Ford+Transit+1800kg+(D)", alt: "Ford Transit სატვირთო, 1800კგ ტვირთამწეობა, მოდელი D" },
+        { name: "Ford Transit (E)", capacity: 2000, priceTbilisi: "40ლ – ადგილიდან ადგილამდე", priceOutside: "1კმ–1.20 ლ. ერთი გზა", priceAirport: "50ლ", image: "https://placehold.co/600x400/D1D5DB/374151?text=Ford+Transit+2000kg+(E)", alt: "Ford Transit სატვირთო, 2000კგ ტვირთამწეობა, მოდელი E" },
+        { name: "Ford Transit (F)", capacity: 1600, priceTbilisi: "40ლ – ადგილიდან ადგილამდე", priceOutside: "1კმ–1.10 ლ. ერთი გზა", priceAirport: "50ლ", image: "https://placehold.co/600x400/9CA3AF/1F2937?text=Ford+Transit+1600kg+(F)", alt: "Ford Transit სატვირთო, 1600კგ ტვირთამწეობა, მოდელი F"},
+        { name: "Ford Transit (G)", capacity: 2000, priceTbilisi: "50ლ – ადგილიდან ადგილამდე", priceOutside: "1კმ–1.20 ლ. ერთი გზა", priceAirport: "60ლ", image: "https://images.pexels.com/photos/16079005/pexels-photo-16079005/free-photo-of-white-ford-transit-van-on-a-road.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", alt: "Ford Transit თეთრი სატვირთო, 2000კგ ტვირთამწეობა, მოდელი G" },
+        { name: "მერსედესი-815", capacity: 3200, priceTbilisi: "100ლ – ადგილიდან ადგილამდე", priceOutside: "1კმ–2 ლ. ერთი გზა", priceAirport: "120ლ", image: "https://placehold.co/600x400/6B7280/111827?text=Mercedes+815+3200kg", alt: "Mercedes 815 სატვირთო, 3200კგ ტვირთამწეობა" }
+    ];
+
+    const carsGrid = document.getElementById('cars-grid');
+    const filterButtons = document.querySelectorAll('#car-filters button');
+
+    function displayCars(filteredCars) {
+        carsGrid.innerHTML = ''; // Clear existing cars
+        if (filteredCars.length === 0) {
+            carsGrid.innerHTML = `<p class="col-span-full text-center text-gray-500 text-xl py-10">მითითებული ტვირთამწეობით მანქანები არ მოიძებნა.</p>`;
+            return;
+        }
+        filteredCars.forEach((car, index) => {
+            const carElement = `
+                <div class="car-card bg-gray-50 p-6 rounded-xl shadow-lg hover:shadow-2xl fade-in-up" data-capacity="${car.capacity}" style="transition-delay: ${index * 0.05}s;">
+                    <img src="${car.image}" alt="${car.alt || car.name}" class="w-full h-52 object-cover rounded-lg mb-5 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/969696?text=სურათი+მიუწვდომელია+-+${car.name.replace(/\s/g, '+')}';">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-3 text-center">${car.name}</h3>
+                    <ul class="space-y-2.5 text-gray-600 text-sm">
+                        <li><i class="fas fa-weight-hanging mr-2 text-amber-500"></i><strong>ტვირთამწეობა:</strong> ${car.capacity}კგ</li>
+                        <li><i class="fas fa-map-marker-alt mr-2 text-amber-500"></i><strong>ფასი თბილისში:</strong> ${car.priceTbilisi}</li>
+                        <li><i class="fas fa-road mr-2 text-amber-500"></i><strong>ფასი ქალაქგარეთ:</strong> ${car.priceOutside}</li>
+                        <li><i class="fas fa-plane-departure mr-2 text-amber-500"></i><strong>აეროპორტი/საბაჟო:</strong> ${car.priceAirport}</li>
+                    </ul>
+                </div>
+            `;
+            carsGrid.insertAdjacentHTML('beforeend', carElement);
+        });
+        // Re-observe newly added elements for animation if not using global observer for parent
+        const newAnimatedElements = carsGrid.querySelectorAll('.fade-in-up');
+        newAnimatedElements.forEach(el => {
+            el.classList.remove('is-visible'); // Reset visibility for animation
+            observer.observe(el)
+        });
+    }
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            const capacity = button.getAttribute('data-capacity');
+            const filteredCars = capacity === 'all' ? carsData : carsData.filter(car => car.capacity == capacity);
+            displayCars(filteredCars);
+        });
+    });
+
+    displayCars(carsData); // Initial display of all cars
+
+    // Contact Form submission
+    const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('form-message');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !message) {
+                formMessage.textContent = 'გთხოვთ შეავსოთ ყველა სავალდებულო ველი.';
+                formMessage.className = 'text-red-400 text-sm text-center h-5 opacity-100';
+                return;
+            }
+            
+            formMessage.textContent = 'მადლობა! თქვენი შეტყობინება მიღებულია.';
+            formMessage.className = 'text-green-400 text-sm text-center h-5 opacity-100';
+            contactForm.reset();
+
+            setTimeout(() => {
+                formMessage.textContent = '';
+                formMessage.style.opacity = '0';
+            }, 5000);
+        });
+    }
+
+    // Scroll to Top Button functionality
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Fallback for images that might still fail (though placehold.co should be reliable)
+    const heroVideo = document.getElementById('hero-video');
+    if (heroVideo && heroVideo.poster) { // Though poster is removed, this is good practice
+        const imgTestPoster = new Image();
+        imgTestPoster.onerror = function() {
+            heroVideo.poster = 'https://placehold.co/1920x1080/cccccc/969696?text=ვიდეო+ვერ+მოიძებნა';
+        }
+        imgTestPoster.src = heroVideo.poster;
+    }
+    const aboutImage = document.querySelector('#about img');
+    if (aboutImage) {
+        aboutImage.onerror = function() {
+            this.onerror=null;
+            this.src='https://placehold.co/600x450/cccccc/969696?text=სურათი+მიუწვდომელია';
+        }
+    }
+});
+</script>
+</body>
+</html>
